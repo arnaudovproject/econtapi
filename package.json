@@ -1,0 +1,35 @@
+{
+  "name": "econtapi",
+  "version": "1.0.0",
+  "description": "Econt Express integration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:arnaudovproject/econtapi.git"
+  },
+  "keywords": [
+    "courier",
+    "integration",
+    "express",
+    "econt",
+    "api"
+  ],
+  "author": "Ventsislav Arnaudov",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "eslint": "^7.0.0",
+    "jest": "^29.7.0",
+    "prettier": "^2.0.0",
+    "ts-jest": "^29.1.5",
+    "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^1.7.2"
+  }
+}
