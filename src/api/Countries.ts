@@ -1,10 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-
-interface Data {
-    url: string,
-    username: string,
-    password: string
-}
+import {Data} from './interfaces/Data';
 
 export class Countries {
     private axiosInstance: AxiosInstance;

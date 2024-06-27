@@ -2,14 +2,14 @@ import axios, {AxiosInstance} from "axios";
 import {Data} from './interfaces/Data';
 
 interface Validate {
-    countryCode: string
+    cityID: number
 }
 
-export class Cities {
+export class Streets {
     private axiosInstance: AxiosInstance;
     private username: string;
     private password: string;
-    private nomenclature: string = 'Nomenclatures/NomenclaturesService.getCities.json';
+    private nomenclature: string = 'Nomenclatures/NomenclaturesService.getStreets.json';
 
     constructor(data: Data) {
         this.username = data.username;
@@ -26,16 +26,16 @@ export class Cities {
         });
     }
 
-    public async getCities(args: Validate): Promise<any> {
+    public async getStreets(args: Validate): Promise<any> {
         try {
             const params: {} = {
-                countryCode: args.countryCode
-            }
+                cityID: args.cityID
+            };
 
             const response = await this.axiosInstance.post(this.nomenclature, params);
             return response.data;
         } catch (error) {
-            console.log(`Error fetching cities: ${error}`);
+            console.log(`Error fetching streets: ${error}`);
             throw error;
         }
     }

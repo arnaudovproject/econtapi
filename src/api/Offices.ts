@@ -1,10 +1,5 @@
-import axios, { AxiosInstance } from "axios";
-
-interface Data {
-    url: string,
-    username: string,
-    password: string
-}
+import axios, {AxiosInstance} from "axios";
+import {Data} from './interfaces/Data';
 
 interface Validate {
     countryCode: string,
