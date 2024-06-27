@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from "axios";
 
 interface Data {
     url: string,
@@ -6,11 +6,16 @@ interface Data {
     password: string
 }
 
-export class Countries {
+interface Validate {
+    countryCode: string,
+    cityID: number
+}
+
+export class Offices {
     private axiosInstance: AxiosInstance;
     private username: string;
     private password: string;
-    private nomenclature: string = 'Nomenclatures/NomenclaturesService.getCountries.json';
+    private nomenclature: string = 'Nomenclatures/NomenclaturesService.getOffices.json';
 
     constructor(data: Data) {
         this.username = data.username;
@@ -27,12 +32,17 @@ export class Countries {
         });
     }
 
-    public async getCountries(): Promise<any> {
+    public async getOffices(args: Validate): Promise<any> {
         try {
-            const response = await this.axiosInstance.get(this.nomenclature);
+            const params: {} = {
+                countryCode: args.countryCode,
+                cityID: args.cityID
+            };
+
+            const response = await this.axiosInstance.post(this.nomenclature, params);
             return response.data;
         } catch (error) {
-            console.log(`Error fetching countries: ${error}`);
+            console.log(`Error fetching offices: ${error}`);
             throw error;
         }
     }
