@@ -5,5 +5,6 @@ export interface Data {
     url: string,
     username: string,
     password: string,
-    cache?: Cache
+    cache?: Cache,
+    updateIntervalHours?: number
 }

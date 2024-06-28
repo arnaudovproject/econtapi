@@ -14,22 +14,8 @@ export class Countries extends Base {
 
     constructor(data: Data) {
         super(data);
+        this.checkFolderAndFile(this.filePath);
         this.cache = data.cache || new Cache();
-        this.ensureStorageFile();
-    }
-
-    private ensureStorageFile(): void {
-        try {
-            if (!fs.existsSync(FileSystem.folder)) {
-                fs.mkdirSync((FileSystem.folder));
-            }
-            if (!fs.existsSync(this.filePath)) {
-                fs.writeFileSync(this.filePath, '[]', 'utf-8');
-            }
-        } catch (error) {
-            console.error(`Error creating storage file: ${error}`);
-            throw error;
-        }
     }
 
     public async getCountries(): Promise<Country[]> {
@@ -37,15 +23,23 @@ export class Countries extends Base {
             switch (this.readOption) {
                 case 'file':
                     if (fs.existsSync(this.filePath)) {
-                        const array = this.cache.read(this.filePath) as Country[];
-                        if (Array.isArray(array) && array.length === 0) {
+                        if (this.timeForUpdate(this.filePath)) {
                             const response = await this.axiosInstance.get(this.nomenclature);
                             const data = response.data.countries as Country[];
                             this.cache.write(this.filePath, data);
 
                             return data;
                         } else {
-                            return array;
+                            const array = this.cache.read(this.filePath) as Country[];
+                            if (Array.isArray(array) && array.length === 0) {
+                                const response = await this.axiosInstance.get(this.nomenclature);
+                                const data = response.data.countries as Country[];
+                                this.cache.write(this.filePath, data);
+
+                                return data;
+                            } else {
+                                return array;
+                            }
                         }
                     } else {
                         const response = await this.axiosInstance.get(this.nomenclature);
@@ -59,7 +53,7 @@ export class Countries extends Base {
                     return response.data.countries as Country[];
             }
         } catch (error) {
-            console.log(`Error fetching countries: ${error}`);
+            console.error(`Error fetching countries: ${error}`);
             throw error;
         }
     }
@@ -69,9 +63,7 @@ export class Countries extends Base {
             switch (this.readOption) {
                 case 'file':
                     if (fs.existsSync(this.filePath)) {
-                        const array = this.cache.read(this.filePath) as Country[];
-                        const country = array.find((item) => item.code3 === code3);
-                        if (Array.isArray(array) && array.length === 0) {
+                        if (this.timeForUpdate(this.filePath)) {
                             const response = await this.axiosInstance.get(this.nomenclature);
                             const data = response.data.countries as Country[];
                             const country = data.find((item) => item.code3 === code3);
@@ -79,7 +71,18 @@ export class Countries extends Base {
 
                             return country || null;
                         } else {
-                            return country || null;
+                            const array = this.cache.read(this.filePath) as Country[];
+                            const country = array.find((item) => item.code3 === code3);
+                            if (Array.isArray(array) && array.length === 0) {
+                                const response = await this.axiosInstance.get(this.nomenclature);
+                                const data = response.data.countries as Country[];
+                                const country = data.find((item) => item.code3 === code3);
+                                this.cache.write(this.filePath, data);
+
+                                return country || null;
+                            } else {
+                                return country || null;
+                            }
                         }
                     } else {
                         const response = await this.axiosInstance.get(this.nomenclature);
@@ -99,7 +102,7 @@ export class Countries extends Base {
                     return country || null;
             }
         } catch (error) {
-            console.log(`Error fetching country: ${error}`);
+            console.error(`Error fetching country: ${error}`);
             throw error;
         }
     }
