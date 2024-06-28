@@ -1,6 +1,7 @@
 import {Base} from "./Base";
 import {Data} from './interfaces/Data';
-import { Nomenclatures } from "./utility/Nomenclatures";
+import {Nomenclatures} from "./utility/Nomenclatures";
+import {Office} from "./interfaces/Office";
 
 interface Validate {
     countryCode: string,
@@ -14,7 +15,7 @@ export class Offices extends Base {
         super(data);
     }
 
-    public async getOffices(args: Validate): Promise<any> {
+    public async getOffices(args: Validate): Promise<Office[]> {
         try {
             const params: {} = {
                 countryCode: args.countryCode,
@@ -22,7 +23,20 @@ export class Offices extends Base {
             };
 
             const response = await this.axiosInstance.post(this.nomenclature, params);
-            return response.data;
+            return response.data.offices as Office[];
+        } catch (error) {
+            console.log(`Error fetching offices: ${error}`);
+            throw error;
+        }
+    }
+
+    public async getOffice(id: number): Promise<Office | null> {
+        try {
+            const response = await this.axiosInstance.get(this.nomenclature);
+            const offices = response.data.offices as Office[];
+            const office = offices.find((item) => item.id === id);
+
+            return office || null;
         } catch (error) {
             console.log(`Error fetching offices: ${error}`);
             throw error;

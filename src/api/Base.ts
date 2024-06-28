@@ -5,8 +5,10 @@ export class Base {
     protected axiosInstance: AxiosInstance;
     protected username: string;
     protected password: string;
+    protected readOption: string;
 
     constructor(data: Data) {
+        this.readOption = data.readOption;
         this.username = data.username;
         this.password = data.password;
         this.axiosInstance = axios.create({
