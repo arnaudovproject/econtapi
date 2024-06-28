@@ -1,8 +1,9 @@
 import {Base} from "./Base";
 import { Data } from './interfaces/Data';
+import { Nomenclatures } from "./utility/Nomenclatures";
 
 export class Countries extends Base {
-    private nomenclature: string = 'Nomenclatures/NomenclaturesService.getCountries.json';
+    private nomenclature: string = Nomenclatures.countries;
 
     constructor(data: Data) {
         super(data);

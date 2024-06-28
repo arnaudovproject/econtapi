@@ -1,12 +1,13 @@
 import {Base} from "./Base";
 import {Data} from './interfaces/Data';
+import { Nomenclatures } from "./utility/Nomenclatures";
 
 interface Validate {
     countryCode: string
 }
 
 export class Cities extends Base {
-    private nomenclature: string = 'Nomenclatures/NomenclaturesService.getCities.json';
+    private nomenclature: string = Nomenclatures.cities;
 
     constructor(data: Data) {
         super(data);
