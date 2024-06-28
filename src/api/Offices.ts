@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from "axios";
+import {Base} from "./Base";
 import {Data} from './interfaces/Data';
 
 interface Validate {
@@ -6,25 +6,11 @@ interface Validate {
     cityID: number
 }
 
-export class Offices {
-    private axiosInstance: AxiosInstance;
-    private username: string;
-    private password: string;
+export class Offices extends Base {
     private nomenclature: string = 'Nomenclatures/NomenclaturesService.getOffices.json';
 
     constructor(data: Data) {
-        this.username = data.username;
-        this.password = data.password;
-        this.axiosInstance = axios.create({
-            baseURL: data.url,
-            auth: {
-                username: this.username,
-                password: this.password
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        super(data);
     }
 
     public async getOffices(args: Validate): Promise<any> {

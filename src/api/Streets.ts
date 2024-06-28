@@ -1,29 +1,15 @@
-import axios, {AxiosInstance} from "axios";
+import {Base} from "./Base";
 import {Data} from './interfaces/Data';
 
 interface Validate {
     cityID: number
 }
 
-export class Streets {
-    private axiosInstance: AxiosInstance;
-    private username: string;
-    private password: string;
+export class Streets extends Base {
     private nomenclature: string = 'Nomenclatures/NomenclaturesService.getStreets.json';
 
     constructor(data: Data) {
-        this.username = data.username;
-        this.password = data.password;
-        this.axiosInstance = axios.create({
-            baseURL: data.url,
-            auth: {
-                username: this.username,
-                password: this.password
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        super(data);
     }
 
     public async getStreets(args: Validate): Promise<any> {

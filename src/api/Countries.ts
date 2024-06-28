@@ -1,25 +1,11 @@
-import axios, { AxiosInstance } from 'axios';
-import {Data} from './interfaces/Data';
+import {Base} from "./Base";
+import { Data } from './interfaces/Data';
 
-export class Countries {
-    private axiosInstance: AxiosInstance;
-    private username: string;
-    private password: string;
+export class Countries extends Base {
     private nomenclature: string = 'Nomenclatures/NomenclaturesService.getCountries.json';
 
     constructor(data: Data) {
-        this.username = data.username;
-        this.password = data.password;
-        this.axiosInstance = axios.create({
-            baseURL: data.url,
-            auth: {
-                username: this.username,
-                password: this.password
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        super(data);
     }
 
     public async getCountries(): Promise<any> {
