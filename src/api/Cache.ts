@@ -1,18 +1,23 @@
-import fs from "node:fs";
-import {Country} from "./interfaces/Country";
+/*-----------------------------
+ * Author <Ventsislav Arnaudov>
+ * E-mail <mail@varnaudov.com>
+ * Site   <varnaudov.com>
+*----------------------------*/
+
+import fs from "fs/promises";
 
 export class Cache {
-    public write(path: string, data: Object): void {
+    public async write(path: string, data: Object): Promise<void> {
         try {
-            fs.writeFileSync(path, JSON.stringify(data, null, 2), 'utf-8');
+            await fs.writeFile(path, JSON.stringify(data, null, 2), 'utf-8');
         } catch (error) {
             throw error;
         }
     }
 
-    public read(path: string) {
+    public async read(path: string): Promise<any> {
         try {
-            const response = fs.readFileSync(path, 'utf-8');
+            const response = await fs.readFile(path, 'utf-8');
             return JSON.parse(response);
         } catch (error) {
             throw error;

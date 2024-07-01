@@ -1,3 +1,9 @@
+/*-----------------------------
+ * Author <Ventsislav Arnaudov>
+ * E-mail <mail@varnaudov.com>
+ * Site   <varnaudov.com>
+*----------------------------*/
+
 import {Base} from "./Base";
 import {Data} from './interfaces/Data';
 import {Nomenclatures} from "./utility/Nomenclatures";

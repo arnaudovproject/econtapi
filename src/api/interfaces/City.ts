@@ -1,3 +1,9 @@
+/*-----------------------------
+ * Author <Ventsislav Arnaudov>
+ * E-mail <mail@varnaudov.com>
+ * Site   <varnaudov.com>
+*----------------------------*/
+
 import {Country} from "./Country";
 
 interface Location {

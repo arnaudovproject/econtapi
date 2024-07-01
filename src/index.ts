@@ -1,3 +1,9 @@
+/*-----------------------------
+ * Author <Ventsislav Arnaudov>
+ * E-mail <mail@varnaudov.com>
+ * Site   <varnaudov.com>
+*----------------------------*/
+
 export { Countries } from "./api/Countries";
 export { Cities } from "./api/Cities";
 export { Offices } from "./api/Offices";

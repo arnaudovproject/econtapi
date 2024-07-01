@@ -1,3 +1,9 @@
+/*-----------------------------
+ * Author <Ventsislav Arnaudov>
+ * E-mail <mail@varnaudov.com>
+ * Site   <varnaudov.com>
+*----------------------------*/
+
 import fs from "node:fs";
 import {Data} from './interfaces/Data';
 import axios, {AxiosInstance} from 'axios';
@@ -33,7 +39,7 @@ export class Base {
         const modifiedTime = new Date(stats.mtime).getTime();
         const hours = (now - modifiedTime) / 1000 / 60 / 60;
 
-        return hours > 24;
+        return hours > this.updateIntervalHours;
     }
 
     protected checkFolderAndFile(filePath: string): void {
